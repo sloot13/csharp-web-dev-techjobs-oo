@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace TechJobsOO
 {
     public class Job
@@ -12,7 +13,6 @@ namespace TechJobsOO
         public PositionType JobType { get; set; }
         public CoreCompetency JobCoreCompetency { get; set; }
 
-        // TODO: Add the two necessary constructors.
         public Job()
         {
             Id = nextId;
@@ -28,7 +28,6 @@ namespace TechJobsOO
             JobCoreCompetency = jobCoreCompetency;
         }
 
-        // TODO: Generate Equals() and GetHashCode() methods.
         public override bool Equals(object obj)
         {
             return obj is Job job &&
@@ -39,6 +38,36 @@ namespace TechJobsOO
         {
             return HashCode.Combine(Id);
         }
-        
+
+        public override string ToString()
+        {
+            if( this.checkNull(Name) && this.checkNull(EmployerName) && this.checkNull(EmployerLocation) && this.checkNull(JobType) && this.checkNull(JobCoreCompetency))
+            {
+                return "OOPS!  This job does not seem to exist";
+            }
+
+
+            return "ID:  " + this.ifNull(Id) + "\n" +
+                   "Name:  " + this.ifNull(Name) + "\n" +
+                   "Employer:  " + this.ifNull(EmployerName) + "\n" +
+                   "Location:  " + this.ifNull(EmployerLocation) + "\n" +
+                   "Position Type:  " + this.ifNull(JobType) + "\n" +
+                   "Core Competency:  " + this.ifNull(JobCoreCompetency) + "\n";
+        }
+
+        private string ifNull( Object obj)
+        {
+            if (obj.ToString() == null  || obj.ToString() == "")
+            {
+                return "Data not available";
+            }
+
+            return obj.ToString();
+        }
+
+        private bool checkNull( Object obj)
+        {
+            return obj == null;
+        }
     }
 }
